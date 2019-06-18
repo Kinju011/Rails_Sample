@@ -1,0 +1,8 @@
+<h1>Users#edit</h1>
+<p>Find me in app/views/users/edit.html.erb</p>
+<%= form_with model: @user do |form| %>
+<%= form.text_field :Name, placeholder: "name" %>
+<%= form.text_field :Age, placeholder: "age" %>
+<%= form.submit %>
+<% end %>
+<%= link_to "Home", users_path %>
