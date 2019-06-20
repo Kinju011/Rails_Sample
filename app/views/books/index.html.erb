@@ -1,31 +1,27 @@
 <h1>Books#index</h1>
 <p>Find me in app/views/books/index.html.erb</p>
-<%= form_tag({controller: "books", action: "index"}, method: "get") do %>
-<%= text_field_tag :name, params[:book] %>
-<%= submit_tag 'Search', name: nil %>
-<% end %>
-<% @book.each do |book| %>
-<p>
-<%= book.name %>
-<% if Subscribtion.exists?(:Book_id => book.id) %>
-	<% @exists = "Yes" %>
-<% end %>
-<% if Subscribtion.exists?(:Book_id => book.id, :User_id => current_user.id) %>
-	<%= link_to "unsubscribe", :controller => :books, :action => :unsubscribe, book: book.id %>
-	<% @exists = "No" %>
-<% else %>
-	<% if @exists == "Yes" %>
-	 <a href="#">Unavailable</a>
-	 <% @exists = "No" %>
-	<% else %>
-		<%= link_to "subscribe", :controller => :books, :action => :subscribe, book: book.id %>
-	<% end %>
-<% end %>
-<%= link_to "Show", book_path(book) %>
-<%= link_to "Edit", edit_book_path(book) %>
-<%= link_to "Remove", book, method: :delete, data:{ confirm: "Sure?" } %>
-<% end %>
-<p>
-<%= link_to "New Book", books_new_path %>
-<%= current_user.email%>
-</p>
+<%= text_field_tag :search, "" , class:"search_book" %>
+<tbody class="book_tbody_content">
+	<%= render 'index_content' %>
+</tbody>
+
+<script type="text/javascript">	
+    $(".search_book").keyup(function(){
+    	debugger
+    	var src = $(".search_book").val();
+        $.ajax({
+        	type:'GET',
+          url:"/books",
+          data: JSON.stringify(src),
+          dataType: "json",
+          contentType: "application/json; charset=utf-8",
+          success: function(data){
+          	alert(data.message);
+          },
+          error: function(data){
+          	alert(data.msg);
+          }
+        });
+    });
+    
+</script>

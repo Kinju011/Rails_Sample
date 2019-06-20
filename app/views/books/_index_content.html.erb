@@ -1,0 +1,25 @@
+<% @books.each do |book| %>
+<p>
+<%= book.name %>
+<% if Subscribtion.exists?(:Book_id => book.id) %>
+	<% @exists = "Yes" %>
+<% end %>
+<% if Subscribtion.exists?(:Book_id => book.id, :User_id => current_user.id) %>
+	<%= link_to "unsubscribe", :controller => :books, :action => :unsubscribe, book: book.id %>
+	<% @exists = "No" %>
+<% else %>
+	<% if @exists == "Yes" %>
+	 <a href="#">Unavailable</a>
+	 <% @exists = "No" %>
+	<% else %>
+		<%= link_to "subscribe", :controller => :books, :action => :subscribe, book: book.id %>
+	<% end %>
+<% end %>
+<%= link_to "Show", book_path(book) %>
+<%= link_to "Edit", edit_book_path(book) %>
+<%= link_to "Remove", book, method: :delete, data:{ confirm: "Sure?" } %>
+<% end %>
+<p>
+<%= link_to "New Book", books_new_path %>
+<%= current_user.email%>
+</p>

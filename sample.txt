@@ -1,0 +1,1 @@
+git@github.com:Kinju011/Rails_Sample.git

@@ -1,11 +1,7 @@
 class BooksController < ApplicationController
   def index   
-    puts "Hi"
-    if params[:book]      
-      @book = Book.where('name like ?',"%#{params[:name].to_unsafe_hash}%") 
-    else
-      @book=Book.all    
-    end
+    @books = Book.search(params[:search].split("?").last)
+    respond_to :html, :json
   end
 
   def new
