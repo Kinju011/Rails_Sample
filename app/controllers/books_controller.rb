@@ -1,14 +1,20 @@
 class BooksController < ApplicationController
-  def index   
-    @books = Book.search(params[:search].split("?").last)
-    respond_to :html, :json
+  def index        
+    query_url = request.original_fullpath
+    if query_url.include? "?"
+      @books = Book.search(params[:src])    
+      respond_to :js , :html
+    else
+      @books = Book.search(params[:search])
+      respond_to :js , :html
+    end    
   end
 
   def new
     @book=Book.new
   end
 
-  def create    
+  def create
     @book=Book.new(params[:book].to_unsafe_hash)
     @book.save
     redirect_to books_path
