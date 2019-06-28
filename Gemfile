@@ -11,6 +11,7 @@ gem 'rails', '~> 5.1.4'
 gem 'pry'
 gem 'devise'
 gem 'jquery-rails'
+gem 'will_paginate'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server

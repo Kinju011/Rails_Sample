@@ -2,10 +2,10 @@ class BooksController < ApplicationController
   def index        
     query_url = request.original_fullpath
     if query_url.include? "?"
-      @books = Book.search(params[:src])    
+      @books = Book.search(params[:src]).paginate(:page => params[:page], :per_page => 2)
       respond_to :js , :html
     else
-      @books = Book.search(params[:search])
+      @books = Book.search(params[:search]).paginate(:page => params[:page], :per_page => 2)
       respond_to :js , :html
     end    
   end

@@ -19,6 +19,7 @@
 <%= link_to "Edit", edit_book_path(book) %>
 <%= link_to "Remove", book, method: :delete, data:{ confirm: "Sure?" } %>
 <% end %>
+<%= will_paginate @books %>
 <p>
 <%= link_to "New Book", books_new_path %>
 <%= current_user.email%>
